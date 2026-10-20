@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Thermal Billing System</title>
+<title>Saloni Billing System</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
@@ -57,9 +57,9 @@
   .summary .line { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #eee; }
   .summary .tot { font-size:18px; font-weight:700; }
 
-  .thermal { width:250px; background:white; padding:10px; font-family:monospace; font-size:12px; color:#111; }
-  .thermal .center { text-align:center; }
-  .thermal hr { border:none; border-top:1px dashed #999; margin:6px 0; }
+  .Saloni { width:250px; background:white; padding:10px; font-family:monospace; font-size:12px; color:#111; }
+  .Saloni .center { text-align:center; }
+  .Saloni hr { border:none; border-top:1px dashed #999; margin:6px 0; }
 
   .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; padding:12px; z-index:40; }
   .modal { background:white; padding:18px; border-radius:10px; max-width:920px; width:100%; box-shadow:0 12px 32px rgba(2,6,23,0.3); }
@@ -90,9 +90,9 @@
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
   <img id="shopLogoPreview" src="logo.jpg" class="logo" alt="logo">
   <div>
-    <div style="font-weight:800" id="shopNameInput">NOW100 SUPERMART</div>
-    <div class="small" id="shopAddrInput">LG-05, Nirala Aspire Plaza Market, Sector 16-B, West, Greater Noida</div>
-    <div class="small" id="shopContInput">Contact - 8920903244</div>
+    <div style="font-weight:800" id="shopNameInput">LOCAL SUPERMART</div>
+    <div class="small" id="shopAddrInput">Near BNP college Lane-69 ,Mira road, Mumbai , Maharashtra 41234</div>
+    <div class="small" id="shopContInput">Contact - 0987654321</div>
   </div>
   <div style="margin-left:auto" class="small" id="datetime"></div>
 </div>
@@ -305,9 +305,9 @@
   </div>
 </div>
 
-<!-- print area: thermal formatted receipt -->
+<!-- print area: Saloni formatted receipt -->
 <div id="printArea" style="display:none; padding:10px;">
-  <div class="thermal" id="thermalReceipts"></div>
+  <div class="Saloni" id="SaloniReceipts"></div>
 </div>
 
 <script>
@@ -317,10 +317,10 @@ let billLocked = false;
 /* -------------------------
    Storage keys & state
    ------------------------- */
-const STORAGE_KEY = "thermal_bills_v2";     // bills
-const STORAGE_STOCK = "thermal_stock_v1";   // stock items
-const STORAGE_CUSTOMERS = "thermal_customers_v1"; // customers index (summary)
-const STORAGE_HOLDS = "thermal_holds_v1";   // held bills
+const STORAGE_KEY = "Saloni_bills_v2";     // bills
+const STORAGE_STOCK = "Saloni_stock_v1";   // stock items
+const STORAGE_CUSTOMERS = "Saloni_customers_v1"; // customers index (summary)
+const STORAGE_HOLDS = "Saloni_holds_v1";   // held bills
 
 let items = []; // current bill items
 
@@ -557,8 +557,8 @@ function generateQRForTotal(){
   const total = Number(document.getElementById("grandAmt").textContent || 0);
   if(total <= 0) return;
 
-  const upiId = "8920903244-2@axl";   // ✅ tumhara UPI
-  const shopName = "NOW100 SUPERMART";
+  const upiId = "0987654321-2@axl";   // ✅ tumhara UPI
+  const shopName = "LOCAL SUPERMART";
 
   const upiURL =
     `upi://pay?pa=${upiId}&pn=${encodeURIComponent(shopName)}&am=${total.toFixed(2)}&cu=INR`;
@@ -573,8 +573,8 @@ function generateOfflineQR(){
   const total = Number(document.getElementById("grandAmt").textContent || 0);
   if(total <= 0) return;
 
-  const upiId = "8920903244-2@axl";
-  const shopName = "NOW100 SUPERMART";
+  const upiId = "0987654321-2@axl";
+  const shopName = "LOCAL SUPERMART";
 
   const upiURL =
     `upi://pay?pa=${upiId}&pn=${encodeURIComponent(shopName)}&am=${total.toFixed(2)}&cu=INR`;
@@ -709,15 +709,15 @@ function resetAfterSave(){
     document.getElementById("paymentDoneChk").checked = false;
 }
 
-function generateThermalText_NON_GST(bill /*, gstPercent=18 */){
+function generateSaloniText_NON_GST(bill /*, gstPercent=18 */){
   /* const halfGST = gstPercent / 2; */
   let t = "";
-  t += "        NOW100 SUPERMART\n";
+  t += "        LOCAL SUPERMART\n";
   t += "-----------------------------------------------\n";
   t += "LG-05, Nirala Aspire Plaza\n";
   t += "Greater Noida (W)\n";
   /*t += "GSTIN: 09ABCDE1234F1Z5\n";*/
-  t += "Ph: 8920903244\n";
+  t += "Ph: 0987654321\n";
   t += "-----------------------------------------------\n";
   t += "        TAX INVOICE\n";
   t += "-----------------------------------------------\n";
@@ -760,16 +760,16 @@ function generateThermalText_NON_GST(bill /*, gstPercent=18 */){
 }
 
 /*
-function generateThermalText_GST(bill, gstPercent = 5){
+function generateSaloniText_GST(bill, gstPercent = 5){
   const halfGST = gstPercent / 2;
 
   let t = "";
-  t += "        NOW100 SUPERMART\n";
+  t += "        LOCAL SUPERMART\n";
   t += "--------------------------------\n";
   t += "LG-05, Nirala Aspire Plaza\n";
   t += "Greater Noida (W)\n";
   t += "GSTIN: 09ABCDE1234F1Z5\n";
-  t += "Ph: 8920903244\n";
+  t += "Ph: 0987654321\n";
   t += "--------------------------------\n";
   t += `Bill No : ${bill.id}\n`;
   t += `Date    : ${new Date(bill.ts).toLocaleString()}\n`;
@@ -864,12 +864,12 @@ function openWhatsAppForBill(bill){
 
   const finalMobile = mobile.length === 10 ? "91"+mobile : mobile;
 
-  const message = generateThermalText_NON_GST(bill);
+  const message = generateSaloniText_NON_GST(bill);
     
 /*
 const message = isGST
-  ? generateThermalText_GST(bill, 5)
-  : generateThermalText_NON_GST(bill);
+  ? generateSaloniText_GST(bill, 5)
+  : generateSaloniText_NON_GST(bill);
 */
 
   const url =
@@ -919,7 +919,7 @@ Your bill is ready.`;
 
 
 /* -------------------------
-   Print / thermal generation
+   Print / Saloni generation
    ------------------------- */
 function renderBillHTML(bill){
   let html = `<div style="font-family:monospace; width:100%;">`;
@@ -946,8 +946,8 @@ function renderBillHTML(bill){
   return html;
 }
 
-function generateThermalAndPrint(bill){
-  const container = document.getElementById("thermalReceipts");
+function generateSaloniAndPrint(bill){
+  const container = document.getElementById("SaloniReceipts");
   container.innerHTML = renderBillHTML(bill);
   document.getElementById("printArea").style.display = "block";
   setTimeout(()=> window.print(), 200);
@@ -957,13 +957,13 @@ function printPreview(){
   if(items.length===0){ alert("No items to print"); return; }
   const bill = buildBillObject();
   bill.id = 'TEMP-' + Date.now();
-  generateThermalAndPrint(bill);
+  generateSaloniAndPrint(bill);
 }
 function printSavedBill(id){
   const all = read(STORAGE_KEY) || [];
   const b = all.find(x=>x.id===id);
   if(!b) return alert("Bill not found");
-  generateThermalAndPrint(b);
+  generateSaloniAndPrint(b);
 }
 
 /* -------------------------
