@@ -1,5 +1,5 @@
-# Billing-System  # billingsystem
-# 🧾 Thermal POS Billing System
+# Local-System  # billingsystem
+# 🧾 Local Billing System
 
 ## 📌 About the Project
 
@@ -22,7 +22,7 @@ A browser-based Point of Sale (POS) & Billing application built using
 - 💾 LocalStorage based (offline support)
 
 ## 🚀 Live Demo
-👉 (https://409raja.github.io/billingsystem/)
+👉 (https://salonijha107-dotcom.github.io/inventory-management/)
 
 ## 🛠️ Tech Stack
 - HTML
@@ -42,4 +42,4 @@ A browser-based Point of Sale (POS) & Billing application built using
 - Data is stored locally in browser
 
 ## 👨‍💻 Author
-**Raja Kumar**
+**Saloni Jha**
